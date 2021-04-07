@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Faker\Guesser\Name;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateUser extends APIRequest
@@ -24,7 +25,9 @@ class CreateUser extends APIRequest
     public function rules()
     {
         return [
-            //
+            'name'=>'required|string',
+            'email'=>'required|string|email|unique:users',
+            'password' => 'required|string|confirmed'
         ];
     }
 }
