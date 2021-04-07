@@ -26,3 +26,7 @@ Route::get('/',function(){
 Route::resource('products',ProductController::class);
 Route::post('signup',[AuthController::class,'signup']);
 Route::post('login',[AuthController::class,'login']);
+Route::group(['middleware'=>'auth:api'],function(){
+ Route::get('user',[AuthController::class,'user']);
+ Route::get('logout',[AuthController::class,'logout']);
+});
