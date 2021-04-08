@@ -1,25 +1,26 @@
 
 @extends('layouts.app')
 @section('content')
-<h1>新增產品</h1>
+<h1>編輯產品</h1>
 
-<form action="/products" method="post" class="form-horizontal">
+<form action="{{route('products.update',['product' => $product->id])}}" method="post" class="form-horizontal">
   @csrf
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
       <label for="name">產品名稱：</label>
-      <input type="text" name="name" /><br />
+      <input type="text" name="name" value="{{$product->name}}" /><br />
     </li>
     <li class="list-group-item">
       <div style="margin-top:20px; ">
         <label for="descript">產品描述：</label>
-        <textarea type="text" name="descript" style="height: 50px;margin-top:40px; width:150px;">
-      </textarea>
+        <textarea type="text" name="descript" value="" style="height: 50px;margin-top:40px; width:150px;">
+        {{$product->descript}}
+        </textarea>
       </div>
     </li>
     <li class="list-group-item">
       <label for="price">Price:</label>
-      <input type="text" name="price" />
+      <input type="text" value="{{$product->price}}" name="price" />
     </li>
     <li class="list-group-item">
       <label for="imageUrl">產品照片：</label>

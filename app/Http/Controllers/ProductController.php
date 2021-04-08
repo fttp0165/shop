@@ -22,6 +22,12 @@ class ProductController extends Controller
         return view('product.create');
     }
 
+    public function edit($id){
+    
+        $product=Product::where('id',$id)->first();
+        return view('product.edit',['product'=>$product]);
+    }
+
 
 
     public function store(Request $request){

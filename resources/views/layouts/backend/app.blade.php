@@ -10,7 +10,7 @@
 </head>
 <body>
   <div class="container-fluid">
-     @include('layouts.backend.nav');
+     @include('layouts.backend.nav')
      <div class="container">
         @yield('content')
      </div>

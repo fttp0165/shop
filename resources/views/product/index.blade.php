@@ -17,6 +17,9 @@
             <button class="btn btn-dark">刪除產品</button>
         </form>
     </td>
+    <td>
+        <a type="button" class="btn btn-dark" href="{{route('products.edit',['product'=>$product['id']])}}">編輯</a>
+    </td>
 </ul>
 
 
