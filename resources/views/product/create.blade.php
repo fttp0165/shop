@@ -1,7 +1,8 @@
-<h1>新增產品</h1>
 
 @extends('layouts.app')
 @section('content')
+<h1>新增產品</h1>
+
 <form action="/products" method="post" class="form-horizontal">
   <ul class="list-group list-group-flush">
     <li class="list-group-item">

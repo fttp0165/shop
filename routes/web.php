@@ -4,6 +4,7 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CartItemController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,6 +26,7 @@ Route::get('/',function(){
 
 Route::resource('products',ProductController::class);
 Route::resource('carts',CartController::class);
+Route::resource('cart_items',CartItemController::class);
 Route::post('signup',[AuthController::class,'signup']);
 Route::post('login',[AuthController::class,'login']);
 Route::group(['middleware'=>'auth:api'],function(){

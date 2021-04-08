@@ -9,7 +9,7 @@ class Cart extends Model
 {
     use HasFactory;
 
-    function cartItems()
+    public function cartItems()
     {
      return $this->hasMany(CartItem::class);
     }

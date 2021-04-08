@@ -1,8 +1,9 @@
-<h1>產品首頁</h1>
 
-@extends('layouts.app')
+
+@extends('layouts.backend.app')
 @section('content')
-
+<h1>產品首頁</h1>
+<a href={{route('products.create')}} class="btn btn-outline-success">新增產品</a>
 @foreach($products as $product)
 <ul class="list-group list-group-flush">
   <li class="list-group-item"><p class="fs-1"> id:{{$product->id}} </p></li>
