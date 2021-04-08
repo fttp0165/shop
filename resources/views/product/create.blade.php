@@ -3,7 +3,7 @@
 @section('content')
 <h1>新增產品</h1>
 
-<form action="/products" method="post" class="form-horizontal">
+<form action="/products" method="post" class="form-horizontal" enctype="multipart/form-data">
   @csrf
   <ul class="list-group list-group-flush">
     <li class="list-group-item">

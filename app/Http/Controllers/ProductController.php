@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Product;
-
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -19,19 +19,34 @@ class ProductController extends Controller
     }
 
     public function create(){
+  
         return view('product.create');
     }
 
     public function edit($id){
-    
+        
         $product=Product::where('id',$id)->first();
         return view('product.edit',['product'=>$product]);
     }
 
 
+    public function show($id ,Request $request){
+    
+        $product=Product::where('id',$id)->first();
+        return view('product.show',['product'=>$product]);
+    }
+
+
 
     public function store(Request $request){
-
+        $diskName="product_images";
+        $name = $request->file('imageUrl')->getClientOriginalName();
+        $path = $request->file('imageUrl')->storeAs(
+          '' ,$name, $diskName
+        );
+        $url=Storage::disk($diskName)->url($path);
+        $localPath=public_path(Storage::disk($diskName)->url($path));
+        $fullURL=asset(Storage::disk($diskName)->url($path));
         $messages=['required'=>'attribute 是必要的','integer'=>'attribute 必須是整數'];
         $validator=Validator::make($request->all(),[
             'name'=>'required',
@@ -49,29 +64,27 @@ class ProductController extends Controller
         $result=Product::create(['name'=>$validateData['name'],
         'descript'=>$validateData['descript'],
         'price'=>$validateData['price'],
-        'imageUrl'=>$validateData['imageUrl']]);
-         return response()->JSON($result);
+        'imageUrl'=> $fullURL]);
+        redirect("products.index");
       
     }
 
     public function update(Request $request,$id){
-        $form=$request->all();
-        $product=Product::find('id',$id);
-        $product->fill([
-            'name'=>$form['name'],
-            'descript'=>$form['descript'],
-            'price'=>$form['price'],
-            'imageUrl'=>$form['imageUrl'],
-            'updated_at'=>now()
+        $product=Product::find($id);
+        $validateData= $request -> validate([
+            'name'=>['required','string','max:255'],
+            'descript'=>['required','string','max:500'],
+            'price'=>['required','integer','max:255'],
+            'imageUrl'=>[]
         ]);
         $product->save();
-        return response()->JSON(true);
+        return route("products");
     }
 
     public function destroy($id){
-        $product=Product::find('id',$id);
+        $product=Product::find($id);
         $product->delete();
-        return response()->JSON(true);
+        redirect("products.index");
     }
 
 
