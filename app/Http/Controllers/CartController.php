@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\User;
 
 class CartController extends Controller
 {
@@ -47,6 +48,10 @@ class CartController extends Controller
     public function store(Request $request)
     {
         //
+        $user_id=$request['user_id'];
+        $cart=new Cart;
+        $cart->create(['user_id'=>$user_id]);
+        return response()->json(true);
     }
 
     /**
