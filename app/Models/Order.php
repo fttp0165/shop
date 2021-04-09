@@ -5,23 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cart extends Model
+class Order extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id'];
     protected $guarded=[''];
-    public function cartItems()
+     //hasMany orderItems
+    public function orderItems()
     {
-     return $this->hasMany(CartItem::class);
+     return $this->hasMany(OrderItem::class);
     }
-
+    //belongesTo User
     public function user()
     {
      return $this->belongesTo(User::class);
     }
     //belongesTo Cart
-    public function order()
+    public function cart()
     {
-     return $this->hasMany(Order::class);
+     return $this->belongesTo(Cart::class);
     }
 }
