@@ -17,15 +17,13 @@ class CartController extends Controller
     public function index(Request $request)
     {
         //
-        $user_id=$request['user_id'];
-      
-        $cart=Cart::get()->where('user_id',$user_id);
-        if(empty($cart)){
-            $cart=new Cart;
-        }
-        $cartItem=CartItem::get()->Where('cart_id',$cart[0]->id);
-        $cart=collect($cart);
-        $cart['items']=collect($cartItem);
+        $user=auth()->user();
+        $cart=Cart::get()->where('user_id',$user->id)
+                         ->firstOrCreate(['user_id'=>$user->id]);
+    
+        // $cartItem=CartItem::get()->Where('cart_id',$cart[0]->id);
+        // $cart=collect($cart);
+        // $cart['items']=collect($cartItem);
         return response($cart);
     }
 

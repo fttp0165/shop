@@ -9,6 +9,7 @@ class Cart extends Model
 {
     use HasFactory;
     protected $fillable = ['user_id'];
+    protected $guarded=[''];
     public function cartItems()
     {
      return $this->hasMany(CartItem::class);

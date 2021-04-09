@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateCartItem;
 use Illuminate\Http\Request;
 use App\Models\CartItem;
 use App\Models\Cart;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 class CartItemController extends Controller
 {
     //
     public function store(Request $request){
 
-      $messages=['required'=>'attribute 是必要的','integer'=>'attribute 必須是整數'];
+      $messages=['required'=>':attribute 是必要的','integer'=>':attribute 必須是整數'];
       $validator=Validator::make($request->all(),[
           'product_id'=>'required',
           'cart_id'=>'required',
@@ -30,17 +30,21 @@ class CartItemController extends Controller
 
     }
 
-    public function update(Request $request,$id){
+    public function update(UpdateCartItem $request,$id){
 
-        $form =$request->all();
-        
+        $form =$request->validated();
         CartItem::find($id)->update([
-            'qantity'=>$form["quantity"],
+            'quantity'=>$form["quantity"],
             'updated_at'=>now()
         ]);
-
         return response()->json(true);
+    }
 
+    public function destroy($id){
+
+        $cartItem=CartItem::find($id);
+        $cartItem->delete();
+        return response()->json(true);
 
     }
 

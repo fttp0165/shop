@@ -48,6 +48,8 @@ class ProductController extends Controller
         $localPath=public_path(Storage::disk($diskName)->url($path));
         $fullURL=asset(Storage::disk($diskName)->url($path));
         $messages=['required'=>'attribute 是必要的','integer'=>'attribute 必須是整數'];
+    
+       
         $validator=Validator::make($request->all(),[
             'name'=>'required',
             'descript'=>'required',
@@ -65,7 +67,8 @@ class ProductController extends Controller
         'descript'=>$validateData['descript'],
         'price'=>$validateData['price'],
         'imageUrl'=> $fullURL]);
-        redirect("products.index");
+
+        redirect(route("products.index"));
       
     }
 
