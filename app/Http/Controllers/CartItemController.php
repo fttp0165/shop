@@ -6,6 +6,7 @@ use App\Http\Requests\UpdateCartItem;
 use Illuminate\Http\Request;
 use App\Models\CartItem;
 use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
 class CartItemController extends Controller
 {
@@ -21,10 +22,16 @@ class CartItemController extends Controller
       if($validator->fails()){
           return response($validator->errors(),400);
       }
-      $validatedDae=$validator->validate();
-      $cart=Cart::find($validatedDae['cart_id']);
-      $cart_item=$cart->cartItems()->create(['product_id'=>$validatedDae["product_id"],
-                                   'quantity'=>$validatedDae["quantity"]]);
+      $validatedData=$validator->validate();
+  
+      $product=Product::find( $validatedData['product_id']);
+
+      if(!$product->checkQuantity($validatedData['quantity'])){
+        return response($product->name.'數量不足',400);
+      }
+      $cart=Cart::find($validatedData['cart_id']);
+      $cart_item=$cart->cartItems()->create(['product_id'=>$product->id,
+                                   'quantity'=>$validatedData["quantity"]]);
        dd($cart_item);
       return response()->json(true);
 

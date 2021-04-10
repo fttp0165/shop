@@ -54,7 +54,8 @@ class ProductController extends Controller
             'name'=>'required',
             'descript'=>'required',
             'price'=>'required|integer',
-            'imageUrl'=>'required'
+            'imageUrl'=>'required',
+            'quantity'=>'required'
         ],$messages);
 
         if($validator->fails()){
@@ -66,7 +67,9 @@ class ProductController extends Controller
         $result=Product::create(['name'=>$validateData['name'],
         'descript'=>$validateData['descript'],
         'price'=>$validateData['price'],
-        'imageUrl'=> $fullURL]);
+        'imageUrl'=> $fullURL,
+        'quantity'=>$validateData['quantity']]
+        );
 
         redirect(route("products.index"));
       
@@ -78,7 +81,8 @@ class ProductController extends Controller
             'name'=>['required','string','max:255'],
             'descript'=>['required','string','max:500'],
             'price'=>['required','integer','max:255'],
-            'imageUrl'=>[]
+            'imageUrl'=>[],
+            'quantity'=>['required']
         ]);
         $product->save();
         return route("products");
@@ -91,21 +95,21 @@ class ProductController extends Controller
     }
 
 
-    function get_product(){
-        return [
-            [
-              "id"=>1,
-              "name"=>"Orange",
-              "price"=>15
-            ],
-            [
-              "id"=>2,
-              'name'=>"Apple",
-              'price'=>45,
-              "imageUrl" => asset( "images/apple.jpeg")
-              ]
-        ];
-    }
+    // function get_product(){
+    //     return [
+    //         [
+    //           "id"=>1,
+    //           "name"=>"Orange",
+    //           "price"=>15
+    //         ],
+    //         [
+    //           "id"=>2,
+    //           'name'=>"Apple",
+    //           'price'=>45,
+    //           "imageUrl" => asset( "images/apple.jpeg")
+    //           ]
+    //     ];
+    // }
 
   
 }

@@ -36,5 +36,13 @@ class Product extends Model
         return $this->hasmany(OrderItem::class);
     }
     
+    public function checkQuantity($quantity){
+
+      if($this->quantity < $quantity){
+        return false;
+      }
+      return true;
+
+    }
     
 }
