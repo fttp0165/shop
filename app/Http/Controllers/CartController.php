@@ -91,8 +91,11 @@ class CartController extends Controller
     public function checkout(){
         $user=auth()->user();
         $cart=$user->carts()->where('checkouted',false)->with('cartItems')->first();
+      
         if($cart){
+          
             $result=$cart->checkout();
+      
             return response($result);
         }else{
             return response('沒有購物車',400);
