@@ -31,6 +31,7 @@ Route::post('login',[AuthController::class,'login']);
 Route::group(['middleware'=>'auth:api'],function(){
  Route::get('user',[AuthController::class,'user']);
  Route::get('logout',[AuthController::class,'logout']);
+ Route::post('carts/checkout',[CartController::class,'checkout']);
  Route::resource('carts',CartController::class);
  Route::resource('cart_items',CartItemController::class); 
 });

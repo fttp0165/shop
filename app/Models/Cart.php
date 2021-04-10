@@ -38,6 +38,7 @@ class Cart extends Model
         }
 
         $this->update(['checkouted' => true]);
+        $order->orderItems;
         return $order;
 
     }
