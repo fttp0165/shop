@@ -21,10 +21,6 @@ class CartController extends Controller
         $cart=Cart::with(['cartItems'])->where('user_id',$user->id)
                          ->where('checkouted',false)
                          ->firstOrCreate(['user_id'=>$user->id]);
-    
-        // $cartItem=CartItem::get()->Where('cart_id',$cart[0]->id);
-        // $cart=collect($cart);
-        // $cart['items']=collect($cartItem);
         return response($cart);
     }
 
@@ -38,12 +34,6 @@ class CartController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
