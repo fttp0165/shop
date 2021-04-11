@@ -19,7 +19,7 @@ class Cart extends Model
 
     public function user()
     {
-        return $this->belongesTo(User::class);
+        return $this->BelongsTo(User::class);
     }
     //belongesTo Cart
     public function order()
@@ -41,7 +41,6 @@ class Cart extends Model
         $order=$this->order()->create([
             'user_id'=> $this->user_id
         ]);
-        dd($this->user);
         //if member level equal 2 discount 20% off
         if($this->user->level == 2){
             $this->rate=0.8;
@@ -54,7 +53,7 @@ class Cart extends Model
                 'price' => $cartItem->product->price * $this->rate
             ]);
             $currProductQuan=$cartItem->product->quantity - $cartItem->quantity;
-            $cartItem->product->update(['Quantity'=>$currProductQuan]);
+            $cartItem->product->update(['quantity'=>$currProductQuan]);
         }
 
         //setting the order is checkout

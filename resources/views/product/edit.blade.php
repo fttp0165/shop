@@ -1,15 +1,17 @@
 
-@extends('layouts.app')
+@extends('layouts.backend.app')
 @section('content')
 <h1>編輯產品</h1>
 
-<form action="{{route('products.update',['product' => $product->id])}}" method="post" class="form-horizontal">
+<form action="{{route('products.update',['product' => $product->id])}}"  method="POST" class="form-horizontal">
   @csrf
+  @method('PUT')
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
       <label for="name">產品名稱：</label>
       <input type="text" name="name" value="{{$product->name}}" /><br />
     </li>
+ 
     <li class="list-group-item">
       <div style="margin-top:20px; ">
         <label for="descript">產品描述：</label>
@@ -19,8 +21,12 @@
       </div>
     </li>
     <li class="list-group-item">
-      <label for="price">Price:</label>
+      <label for="price">價格:</label>
       <input type="text" value="{{$product->price}}" name="price" />
+    </li>
+    <li class="list-group-item">
+      <label for="quantity">數量:</label>
+      <input type="text" value="{{$product->quantity}}" name="quantity" />
     </li>
     <li class="list-group-item">
       <label for="imageUrl">產品照片：</label>

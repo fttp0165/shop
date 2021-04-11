@@ -10,7 +10,7 @@
 </head>
 <body>
   <div class="container-fluid">
-     @include('layouts.nav');
+     @include('layouts.nav')
      <div class="container">
         @yield('content')
      </div>

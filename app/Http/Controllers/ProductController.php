@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateProduct;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Validator;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
+
 
 class ProductController extends Controller
 {
@@ -31,7 +33,7 @@ class ProductController extends Controller
 
 
     public function show($id ,Request $request){
-    
+      
         $product=Product::where('id',$id)->first();
         return view('product.show',['product'=>$product]);
     }
@@ -47,7 +49,7 @@ class ProductController extends Controller
         $url=Storage::disk($diskName)->url($path);
         $localPath=public_path(Storage::disk($diskName)->url($path));
         $fullURL=asset(Storage::disk($diskName)->url($path));
-        $messages=['required'=>'attribute 是必要的','integer'=>'attribute 必須是整數'];
+        $messages=['required'=>':attribute 是必要的','integer'=>':attribute 必須是整數'];
     
        
         $validator=Validator::make($request->all(),[
@@ -70,28 +72,27 @@ class ProductController extends Controller
         'imageUrl'=> $fullURL,
         'quantity'=>$validateData['quantity']]
         );
-
-        redirect(route("products.index"));
+     
+        return redirect()->route("products.index");
       
     }
 
-    public function update(Request $request,$id){
+    public function update(UpdateProduct $request,$id){
         $product=Product::find($id);
-        $validateData= $request -> validate([
-            'name'=>['required','string','max:255'],
-            'descript'=>['required','string','max:500'],
-            'price'=>['required','integer','max:255'],
-            'imageUrl'=>[],
-            'quantity'=>['required']
-        ]);
-        $product->save();
-        return route("products");
+        
+        
+        $validateData=$request->validated(); 
+       
+        $product->update($validateData);
+       
+        return redirect()->route("products.index");
+
     }
 
     public function destroy($id){
         $product=Product::find($id);
         $product->delete();
-        redirect("products.index");
+        return redirect()->route("products.index");
     }
 
 

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Order extends Model
 {
@@ -17,11 +18,12 @@ class Order extends Model
     //belongesTo User
     public function user()
     {
-     return $this->belongesTo(User::class);
+     return $this->BelongsTo(User::class);
     }
     //belongesTo Cart
     public function cart()
     {
-     return $this->belongesTo(Cart::class);
+     return $this->BelongsTo(Cart::class);
+     
     }
 }

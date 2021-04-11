@@ -22,6 +22,10 @@
       <input type="text" name="price" />
     </li>
     <li class="list-group-item">
+      <label for="quantity">數量:</label>
+      <input type="text" name="quantity" />
+    </li>
+    <li class="list-group-item">
       <label for="imageUrl">產品照片：</label>
       <input type="file" name="imageUrl" />
     </li>
